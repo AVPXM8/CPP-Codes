@@ -6,29 +6,37 @@ Return an array answer of size n, where answer[i] is the minimum number of opera
 #include<string>
 using namespace std;
 
-vector<int >moveOperation( string &s){
+vector<int> moveOperation(string &boxes) {
     cout<<"function called"<<endl;
-    int n=s.length();
-    vector<int>ans(n);
-    // store the index that have 1
-    vector<int >store;
-    for( int i=0;i<n;i++){
-        if(s[i]=='1'){
-            store.push_back(i);
+    int n = boxes.length();
+    vector<int> ans(n, 0);
+    
+    // Pass 1: Left to Right
+    // Calculate cost to move balls from left to current position i
+    int balls_count = 0;
+    int operations = 0;
+    for (int i = 0; i < n; ++i) {
+        ans[i] += operations;
+        if (boxes[i] == '1') {
+            balls_count++;
         }
+        operations += balls_count;
     }
-    // using the store compute the opereations
-    for( int i=0;i<n;i++){
-        int temp=0;
-        //check in our store and add
-        for ( int j=0;j<store.size();j++){
-            temp+=abs(i-store[j]);
 
+    // Pass 2: Right to Left
+    // Calculate cost to move balls from right to current position i
+    // and add it to the existing left-to-right cost.
+    balls_count = 0;
+    operations = 0;
+    for (int i = n - 1; i >= 0; --i) {
+        ans[i] += operations;
+        if (boxes[i] == '1') {
+            balls_count++;
         }
-        ans[i]=temp;
+        operations += balls_count;
     }
-cout<<"returning ans"<<endl;
-return ans;
+    cout<<"returning ans"<<endl;
+    return ans;
 }
 int main(){
     string s;
