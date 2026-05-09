@@ -3,14 +3,22 @@
 *.out
 *.o
 *.obj
+*.pdb
+*.ilk
+*.idb
+*.exp
+*.lib
+*.dll
 
-# Ignore temporary files
+# Ignore temporary and OS files
 *.log
 *.tmp
 *.swp
 .DS_Store
+Thumbs.db
 
+# VS Code and Build folders
 .vscode/
 build/
-
-
+.cache/
+bin/

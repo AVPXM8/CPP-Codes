@@ -1,34 +1,53 @@
-//   Input: nums = [2,0,2,1,1,0]
-//Output: [0,0,1,1,2,2]
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
+using namespace std;
 
+/**
+ * Sorts an array of 0s, 1s, and 2s in-place (Dutch National Flag Algorithm).
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
+ */
+void sortColors(vector<int>& nums) {
+    int low = 0;
+    int mid = 0;
+    int high = nums.size() - 1;
 
-#include<iostream>
-using namespace  std;
-
-void sortColors( vector<int>&nums){
-    int n= num.size();
-    int start=0;
-    int end=n-1;
-   for( int i=0;i<n;i++){
-     int zero=0;
-     int two=n-1;
-     if( nums[i]==0){
-        swap( nums[i],nums[zero+]);
-        i--;
-     }
-     else if( nums[i]==2){
-        swap( nums[i],nums[two--]);
-        i--;
-     }
-     
-   }
-
+    while (mid <= high) {
+        if (nums[mid] == 0) {
+            swap(nums[low], nums[mid]);
+            low++;
+            mid++;
+        } else if (nums[mid] == 1) {
+            mid++;
+        } else {
+            swap(nums[mid], nums[high]);
+            high--;
+        }
+    }
 }
-int main( ){
+
+int main() {
     int n;
-    cout<<" Enter the size"<<endl;
-    cin>>n;
-    vector<int>n;
-    cout<<" Enter the element that would only contain "
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    vector<int> nums(n);
+    cout << "Enter the elements (0, 1, or 2 only):" << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    cout << "Original array: ";
+    for (int x : nums) cout << x << " ";
+    cout << endl;
+
+    sortColors(nums);
+
+    cout << "Sorted array: ";
+    for (int x : nums) cout << x << " ";
+    cout << endl;
+
+    return 0;
 }
